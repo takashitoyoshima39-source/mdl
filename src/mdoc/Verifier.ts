@@ -81,7 +81,9 @@ export class Verifier {
       status: certificate && validityInfo && (validityInfo.signed < certificate.notBefore || validityInfo.signed > certificate.notAfter) ? 'FAILED' : 'PASSED',
       check: 'The MSO signed date must be within the validity period of the certificate',
       id: VerificationAssessmentId.ISSUER_AUTH.MsoSignedDateWithinCertificateValidity,
-      reason: `The MSO signed date (${validityInfo.signed.toUTCString()}) must be within the validity period of the certificate (${certificate.notBefore.toUTCString()} to ${certificate.notAfter.toUTCString()})`,
+      reason: certificate && validityInfo
+        ? `The MSO signed date (${validityInfo.signed.toUTCString()}) must be within the validity period of the certificate (${certificate.notBefore.toUTCString()} to ${certificate.notAfter.toUTCString()})`
+        : 'Certificate or validity information not available',
     });
 
     onCheck({
