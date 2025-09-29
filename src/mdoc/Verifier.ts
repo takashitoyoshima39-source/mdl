@@ -284,7 +284,7 @@ export class Verifier {
       });
 
       if (ns === MDL_NAMESPACE) {
-        const issuer = issuerAuth.certificate.issuerName;
+        const issuer = issuerAuth.certificate?.issuerName;
         if (!issuer) {
           onCheck({
             status: 'FAILED',
